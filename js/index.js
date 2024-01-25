@@ -1,19 +1,26 @@
+//Llamada de los ids utilizados
 const pokemonList = document.querySelector("#pokemonList");
 const headerBottons = document.querySelectorAll(".btn-header");
 
+//Url del api
+const URL = "https://pokeapi.co/api/v2/pokemon/";
+
+// Inicializacion de los datos limite para el bucle for
 const ini = 1;
 const pokemonCant = 301;
 
-let URL = "https://pokeapi.co/api/v2/pokemon/";
 
+//Bucle con el cual se recorren los datos del api
 for (let i = ini; i <= pokemonCant; i++) {
   fetch(URL + i)
     .then((res) => res.json())
     .then((data) => showPokemon(data));
 }
 
-// Estudiar Fetch y promesas
+//Funcion que envia los datos al html
 function showPokemon(poke) {
+
+  //Variable con la que se cargan los tipos de los pokemon
   let types = poke["types"].map(
     (type) => `<p class="${type.type.name} type"> ${type.type.name} </p>`
   );
@@ -51,6 +58,7 @@ function showPokemon(poke) {
   pokemonList.append(div);
 }
 
+//Eventos
 headerBottons.forEach((botton) =>
   botton.addEventListener("click", (event) => {
     const bottonId = event.currentTarget.id;
